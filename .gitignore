@@ -7,3 +7,5 @@
 #development
 /.cache
 /dist
+
+npm-debug.log*
