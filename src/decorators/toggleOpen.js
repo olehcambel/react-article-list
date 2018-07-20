@@ -7,12 +7,14 @@ export default PureComponent =>
       this.state = {
         isOpen: false
       };
+
+      this.toggleOpen = this.toggleOpen.bind(this)
     }
 
     render() {
       return (
         <PureComponent
-          toggleOpen={this.toggleOpen.bind(this)}
+          toggleOpen={this.toggleOpen}
           {...this.state}
           {...this.props}
         />

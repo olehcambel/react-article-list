@@ -51,10 +51,24 @@ class Article extends PureComponent {
 Article.propTypes = {
   article: PropTypes.shape({
     id: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    text: PropTypes.string
-  }).isRequired
+    title: PropTypes.string,
+    text: PropTypes.string,
+    comments: PropTypes.array
+  }).isRequired,
+  isOpen: PropTypes.bool,
+  toggleOpen: PropTypes.func.isRequired
 };
 
-export default Article
+Article.defaultProps = {
+  article: [
+    {
+      title: 'none',
+      text: 'none',
+      comments: []
+    }
+  ],
+  isOpen: false
+};
+
+export default Article;
 // export default toggleOpen(Article);

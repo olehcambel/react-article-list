@@ -14,9 +14,16 @@ const Comment = ({ comment }) => {
 
 Comment.propTypes = {
   comment: PropTypes.shape({
-    text: PropTypes.string.isRequired,
-    user: PropTypes.string.isRequired
+    text: PropTypes.string,
+    user: PropTypes.string
   }).isRequired
 };
+
+Comment.defaultProps = {
+  comment: [{
+    text: 'nothing',
+    user: 'noname'
+  }]
+}
 
 export default Comment;

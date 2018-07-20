@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import toggleOpen from '../decorators/toggleOpen';
 import Comment from './Comment';
 
@@ -19,7 +19,6 @@ class CommentList extends PureComponent {
 
   getBody() {
     const { comments, isOpen } = this.props;
-    // const { isOpen } = this.state;
     if (!isOpen) return null;
     if (!comments.length) return <p>Be the first to comment.</p>;
 
@@ -35,8 +34,18 @@ class CommentList extends PureComponent {
   }
 }
 
+Comment.propTypes = {
+  comments: PropTypes.shape({
+    id: PropTypes.string.isRequired
+  }),
+  isOpen: PropTypes.bool,
+  toggleOpen: PropTypes.func
+}
+
 CommentList.defaultProps = {
-  comments: []
+  comments: [],
+  isOpen: false
+
 };
 
 export default toggleOpen(CommentList);
