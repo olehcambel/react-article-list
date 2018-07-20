@@ -5,61 +5,47 @@ class CommentList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showComment: false
+      isOpen: false
     };
+    this.commx;
   }
 
-  render() {
-    debugger;
+  getBody() {
     const { comments } = this.props;
-    const { showComment } = this.state;
-    const commentElements =
-      showComment &&
-      comments
-        .slice()
-        .map(comment => <Comment key={comment.id} comment={comment} />);
-
-    const noButton = comments ? (
-      <button onClick={this.handleToggleComment.bind(this)}>
-        {showComment ? 'close comment' : 'show comments'}
-      </button>
-    ) : null;
+    const { isOpen } = this.state;
+    debugger;
+    if (!isOpen) return null;
+    if (!comments || !comments.length) return <p>Be the first to comment.</p>;
 
     return (
       <div>
-        {noButton}
-        {commentElements}
+        {comments.map(comment => (
+          <Comment key={comment.id} comment={comment} />
+        ))}
+      </div>
+    );
+  }
+
+  toggleOpen() {
+    this.setState({ isOpen: !this.state.isOpen });
+  }
+
+  render() {
+    const { isOpen } = this.state;
+
+    return (
+      <div>
+        <button onClick={this.toggleOpen.bind(this)}>
+          {isOpen ? 'close comments' : 'show comments'}{' '}
+        </button>
+        {this.getBody()}
       </div>
     );
   }
 
   handleToggleComment() {
-    this.setState({ showComment: !this.state.showComment });
+    this.setState({ isOpen: !this.state.isOpen });
   }
 }
-
-// handleToggleComment() {
-//   this.setState({ showComments: !this.state.showComments });
-// }
-
-// let articleComments;
-//     if (showComments) {
-//       articleComments =
-//         article.comments &&
-//         article.comments.map(comment => {
-//           return (
-//             <ul key={comment.id}>
-//               <li>
-//                 {comment.text} <b> by {comment.user}</b>
-//               </li>
-//             </ul>
-//           );
-//         });
-//     }
-
-//     <button onClick={this.handleToggleComment.bind(this)}>
-//           {showComments ? 'close comment' : 'show comments'}
-//         </button>
-//         {articleComments}
 
 export default CommentList;
