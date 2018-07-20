@@ -4,6 +4,19 @@ import toggleOpen from '../decorators/toggleOpen';
 import Comment from './Comment';
 
 class CommentList extends PureComponent {
+  render() {
+    const { isOpen, toggleOpen } = this.props;
+
+    return (
+      <div>
+        <button onClick={toggleOpen}>
+          {isOpen ? 'close comments' : 'show comments'}
+        </button>
+        {this.getBody()}
+      </div>
+    );
+  }
+
   getBody() {
     const { comments, isOpen } = this.props;
     // const { isOpen } = this.state;
@@ -17,19 +30,6 @@ class CommentList extends PureComponent {
             <Comment key={comment.id} comment={comment} />
           ))}
         </ul>
-      </div>
-    );
-  }
-
-  render() {
-    const { isOpen, toggleOpen } = this.props;
-
-    return (
-      <div>
-        <button onClick={toggleOpen}>
-          {isOpen ? 'close comments' : 'show comments'}
-        </button>
-        {this.getBody()}
       </div>
     );
   }

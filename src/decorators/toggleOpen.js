@@ -1,22 +1,25 @@
 import React, { Component } from 'react';
 
-export default PureComponent => class WrapperToggleOpen extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isOpen: true
-    };
-  }
+export default PureComponent =>
+  class WrapperToggleOpen extends Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        isOpen: false
+      };
+    }
 
-  toggleOpen() {
-    this.setState({ isOpen: !this.state.isOpen });
+    render() {
+      return (
+        <PureComponent
+          toggleOpen={this.toggleOpen.bind(this)}
+          {...this.state}
+          {...this.props}
+        />
+      );
+    }
 
-  }
-
-  render() {
-    return (
-      <PureComponent toggleOpen={this.toggleOpen.bind(this)} {...this.state} {...this.props} />
-    )
-  }
-
-}
+    toggleOpen() {
+      this.setState({ isOpen: !this.state.isOpen });
+    }
+  };

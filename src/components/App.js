@@ -1,7 +1,5 @@
 import React, {Component} from "react";
-import { render } from "react-dom";
 import articles from '../fixtures'
-import Article from './Article'
 import ArticleList from './ArticleList'
 
 const App = () => (
