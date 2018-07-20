@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { findDOMNode } from 'react-dom';
 import PropTypes from 'prop-types';
 
-import toggleOpen from '../decorators/toggleOpen';
+// import toggleOpen from '../decorators/toggleOpen';
 import CommentList from './CommentList';
 
 class Article extends PureComponent {
@@ -28,16 +28,16 @@ class Article extends PureComponent {
         <h3>creation date: {new Date(article.date).toDateString()} </h3>
         <CommentList
           comments={article.comments}
-          ref={this.setCommentsBoxRef.bind(this)}
+          // ref={this.setCommentsBoxRef.bind(this)}
         />
       </section>
     );
   }
 
-  setCommentsBoxRef(ref) {
-    console.log(findDOMNode(ref));
-    console.log(ref);
-  }
+  // setCommentsBoxRef(ref) {
+  //   console.log(findDOMNode(ref));
+  //   console.log(ref);
+  // }
 
   // componentWillReceiveProps(nextProps) {
   //   console.log('---updating', this.props.isOpen, nextProps.isOpen);
@@ -56,4 +56,5 @@ Article.propTypes = {
   }).isRequired
 };
 
-export default toggleOpen(Article);
+export default Article
+// export default toggleOpen(Article);
