@@ -1,51 +1,42 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
+// import PropTypes from 'prop-types';
+import toggleOpen from '../decorators/toggleOpen';
 import Comment from './Comment';
 
-class CommentList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isOpen: false
-    };
-    this.commx;
-  }
-
+class CommentList extends PureComponent {
   getBody() {
-    const { comments } = this.props;
-    const { isOpen } = this.state;
-    debugger;
+    const { comments, isOpen } = this.props;
+    // const { isOpen } = this.state;
     if (!isOpen) return null;
-    if (!comments || !comments.length) return <p>Be the first to comment.</p>;
+    if (!comments.length) return <p>Be the first to comment.</p>;
 
     return (
       <div>
-        {comments.map(comment => (
-          <Comment key={comment.id} comment={comment} />
-        ))}
+        <ul>
+          {comments.map(comment => (
+            <Comment key={comment.id} comment={comment} />
+          ))}
+        </ul>
       </div>
     );
   }
 
-  toggleOpen() {
-    this.setState({ isOpen: !this.state.isOpen });
-  }
-
   render() {
-    const { isOpen } = this.state;
+    const { isOpen, toggleOpen } = this.props;
 
     return (
       <div>
-        <button onClick={this.toggleOpen.bind(this)}>
-          {isOpen ? 'close comments' : 'show comments'}{' '}
+        <button onClick={toggleOpen}>
+          {isOpen ? 'close comments' : 'show comments'}
         </button>
         {this.getBody()}
       </div>
     );
   }
-
-  handleToggleComment() {
-    this.setState({ isOpen: !this.state.isOpen });
-  }
 }
 
-export default CommentList;
+CommentList.defaultProps = {
+  comments: []
+};
+
+export default toggleOpen(CommentList);
