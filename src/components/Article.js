@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 
+import CommentList from './CommentList';
+
 class Article extends Component {
   constructor(props) {
     super(props);
@@ -11,9 +13,6 @@ class Article extends Component {
 
   toggleOpen() {
     this.setState({ isOpen: !this.state.isOpen });
-    // this.setState(prevState => ({
-    //   isOpen: !prevState.isOpen
-    // }));
   }
 
   getBody() {
@@ -26,6 +25,11 @@ class Article extends Component {
   render() {
     const { article } = this.props;
     const { isOpen } = this.state;
+
+    // const body = isOpen && (
+    //   <section className="card-text">{article.text}</section>
+    // );
+
     return (
       <div>
         <h3> {article.title} </h3>
@@ -34,6 +38,8 @@ class Article extends Component {
         </button>
         {this.getBody()}
         <h3>creation date: {new Date(article.date).toDateString()} </h3>
+
+        <CommentList comments={article.comments} />
       </div>
     );
   }
