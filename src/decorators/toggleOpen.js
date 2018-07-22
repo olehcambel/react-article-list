@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 export default PureComponent =>
-  class WrapperToggleOpen extends Component {
+  class ToggleOpenWrapper extends Component {
     constructor(props) {
       super(props);
       this.state = {
@@ -9,6 +9,14 @@ export default PureComponent =>
       };
 
       this.toggleOpen = this.toggleOpen.bind(this)
+    }
+
+    componentDidMount() {
+      // console.log('mounted')
+    }
+
+    componentDidUpdate() {
+      // console.log('updating')
     }
 
     render() {

@@ -1,12 +1,44 @@
-import React, {Component} from "react";
-import articles from '../fixtures'
-import ArticleList from './ArticleList'
+import React, { Component } from 'react';
 
-const App = () => (
-  <div>
-    <h1>Hello</h1>
-    <ArticleList articles={articles} />
-  </div>
-);
+import Select from 'react-select';
+import 'react-select/dist/react-select.css';
 
-export default App
+import articles from '../fixtures';
+import ArticleList from './ArticleList';
+import UserForm from './UserForm';
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selection: null
+    };
+    this.changeSelected = this.changeSelected.bind(this);
+  }
+
+  render() {
+    const options = articles.map(article => ({
+      label: article.title,
+      value: article.id
+    }));
+
+    return (
+      <div>
+        <UserForm />
+        <Select
+          onChange={this.changeSelected}
+          value={this.state.selection}
+          options={options}
+          // multi
+        />
+        <ArticleList articles={articles} defaultOpenId={articles[0].id} />
+      </div>
+    );
+  }
+
+  changeSelected(selection) {
+    this.setState({ selection });
+  }
+}
+
+export default App;

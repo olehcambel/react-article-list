@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import accordion from '../decorators/accordion';
-import Article from './Article';
+import Article from './Article/Article';
 
 class ArticleList extends Component {
   render() {
 
     const { accordion, currentItemId, articles } = this.props;
-    debugger;
     const articleElements = articles.slice().map(article => (
       <li key={article.id}>
         <Article

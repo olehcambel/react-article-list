@@ -9,8 +9,10 @@
   "dependencies": {
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
+    "react-addons-css-transition-group": "^15.6.2",
     "react-dom": "^16.4.1",
-    "react-scripts": "^1.1.4"
+    "react-scripts": "^1.1.4",
+    "react-select": "^1.2.1"
   },
   "devDependencies": {
     "node-sass": "^4.9.2"
