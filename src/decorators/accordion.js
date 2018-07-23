@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export default PureComponent =>
+export default OriginalComponent =>
   class AccordionWrapper extends Component {
     constructor(props) {
       super(props);
@@ -13,7 +13,7 @@ export default PureComponent =>
 
     render() {
       return (
-        <PureComponent
+        <OriginalComponent
           {...this.props}
           accordion={this.accordion}
           currentItemId={this.state.currentItemId}

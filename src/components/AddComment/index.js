@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 
-import './index.sass';
+import './style.sass';
 
 class AddComment extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      messageField: '',
-      nameField: '',
+      message: '',
+      user: '',
       isError: true
     };
 
@@ -15,56 +15,54 @@ class AddComment extends Component {
   }
 
   render() {
-    const { messageField, nameField, isError } = this.state;
+    const { message, user, isError } = this.state;
 
     return (
       <form onSubmit={this.handleSubmit}>
-        <legend>Оставить коммент</legend>
-        <input
-          className={isError ? 'error' : 'passed'}
-          value={nameField}
-          onChange={this.checkName.bind(this, validate.name)}
+        <p>Оставить коммент</p>
+        Name:<input
+          className={this.toggleClassName('user')}
+          value={user}
+          onChange={this.handleChange.bind(this, 'user')}
         />
-        <input
-          className={isError ? 'error' : 'passed'}
-          value={messageField}
-          onChange={this.checkMessage.bind(this, validate.message)}
+        Message:<input
+          className={this.toggleClassName('message')}
+          value={message}
+          onChange={this.handleChange.bind(this, 'message')}
         />
-        {isError && <div>ERROR 404</div>}
-
+        <br />
         <input disabled={isError} type="submit" value="Create" />
       </form>
     );
   }
 
-  checkName(limit, event) {
-    this.handleValidator(limit.from, limit.to, event.target.value.length);
+  toggleClassName(type) {
+    const length = this.state[type].length;
+    let isOk = this.handleValidator(length, type);
 
-    this.setState({ nameField: event.target.value });
+    return isOk ? 'passed' : 'error';
   }
 
-  checkMessage(limit, event) {
-    this.handleValidator(limit.from, limit.to, event.target.value.length);
-
-    this.setState({ messageField: event.target.value });
+  handleChange(type, event) {
+    this.setState({
+      [type]: event.target.value
+    });
   }
 
-  handleValidator(from, to, length) {
-    this.setState({ isError: false });
-    if (from > length || length > to) {
-      this.setState({ isError: true });
-    }
+  handleValidator(length, type) {
+    const from = validate[type].from;
+    const to = validate[type].to;
+    return (from < length) & (length < to);
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log(this.state.username);
-    console.log(this.state.message);
+    this.setState({ user: '', message: '' });
   }
 }
 
 const validate = {
-  name: { from: 5, to: 15 },
+  user: { from: 5, to: 15 },
   message: { from: 20, to: 40 }
 };
 

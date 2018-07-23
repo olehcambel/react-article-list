@@ -4,8 +4,9 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import PropTypes from 'prop-types';
 
 // import toggleOpen from '../decorators/toggleOpen';
-import './Article.sass';
+import './style.sass';
 import CommentList from '../CommentList';
+
 
 class Article extends PureComponent {
   // constructor(props) {

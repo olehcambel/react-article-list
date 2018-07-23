@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import accordion from '../decorators/accordion';
-import Article from './Article/Article';
+import Article from './Article';
 
 class ArticleList extends Component {
   render() {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export default PureComponent =>
+export default OriginalComponent =>
   class ToggleOpenWrapper extends Component {
     constructor(props) {
       super(props);
@@ -21,7 +21,7 @@ export default PureComponent =>
 
     render() {
       return (
-        <PureComponent
+        <OriginalComponent
           toggleOpen={this.toggleOpen}
           {...this.state}
           {...this.props}
