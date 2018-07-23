@@ -6,6 +6,8 @@ import 'react-select/dist/react-select.css';
 import articles from '../fixtures';
 import ArticleList from './ArticleList';
 import UserForm from './UserForm';
+import RangeDayPicker from './RangeDayPicker/index';
+
 
 class App extends React.Component {
   constructor(props) {
@@ -31,6 +33,7 @@ class App extends React.Component {
           options={options}
           // multi
         />
+        <RangeDayPicker />
         <ArticleList articles={articles} defaultOpenId={articles[0].id} />
       </div>
     );

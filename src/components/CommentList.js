@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import toggleOpen from '../decorators/toggleOpen';
 import Comment from './Comment';
+import AddComment from './AddComment'
 
 class CommentList extends PureComponent {
   render() {
@@ -9,6 +10,8 @@ class CommentList extends PureComponent {
 
     return (
       <div>
+        <AddComment />
+
         <button onClick={toggleOpen}>
           {isOpen ? 'close comments' : 'show comments'}
         </button>
@@ -29,6 +32,7 @@ class CommentList extends PureComponent {
             <Comment key={comment.id} comment={comment} />
           ))}
         </ul>
+
       </div>
     );
   }
