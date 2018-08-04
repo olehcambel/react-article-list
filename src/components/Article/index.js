@@ -1,10 +1,9 @@
 import React, { PureComponent } from 'react';
-import { findDOMNode } from 'react-dom';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import PropTypes from 'prop-types';
 
 // import toggleOpen from '../decorators/toggleOpen';
-import './style.sass';
+import './style.css';
 import CommentList from '../CommentList';
 
 

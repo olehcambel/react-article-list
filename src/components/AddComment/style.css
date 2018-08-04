@@ -1,0 +1,5 @@
+.error {
+  border: 2px dashed red; }
+
+.passed {
+  border: 1px dotted green; }

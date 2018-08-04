@@ -1,26 +1,28 @@
 {
-  "name": "react-and-scss",
-  "version": "1.0.0",
-  "main": "index.html",
-  "scripts": {
-    "start": "parcel index.html --open",
-    "build": "parcel build index.html"
-  },
+  "name": "1news-article",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
+    "node-sass-chokidar": "^1.3.3",
+    "npm-run-all": "^4.1.3",
     "prop-types": "^15.6.2",
-    "react": "^16.4.1",
+    "react": "^16.4.2",
     "react-addons-css-transition-group": "^15.6.2",
     "react-day-picker": "^7.1.10",
-    "react-dom": "^16.4.1",
-    "react-scripts": "^1.1.4",
-    "react-select": "^1.2.1",
+    "react-dom": "^16.4.2",
+    "react-scripts": "1.1.4",
+    "react-select": "^2.0.0",
     "redux": "^4.0.0"
   },
-  "devDependencies": {
-    "node-sass": "^4.9.2"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": ""
+  "scripts": {
+    "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
+    "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
+    "start": "npm-run-all -p watch-css start-js",
+    "test": "react-scripts test --env=jsdom",
+    "build": "npm run build-css && react-scripts build",
+    "startDepr": "react-scripts start",
+    "buildDepr": "react-scripts build",
+    "start-js": "react-scripts start",
+    "eject": "react-scripts eject"
+  }
 }

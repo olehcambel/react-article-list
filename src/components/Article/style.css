@@ -1,0 +1,17 @@
+.Article-enter {
+  opacity: 0.01; }
+  .Article-enter-active {
+    opacity: 1;
+    transition: opacity 550ms ease-in; }
+
+.Article-leave {
+  opacity: 1; }
+  .Article-leave-active {
+    opacity: 0.01;
+    transition: opacity 450ms ease-in; }
+
+.Article-appear {
+  opacity: 0.01; }
+  .Article-appear-active {
+    opacity: 1;
+    transition: opacity .5s ease-in; }

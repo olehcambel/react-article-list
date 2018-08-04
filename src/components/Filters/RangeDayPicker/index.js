@@ -1,6 +1,6 @@
 import React from 'react';
 import DayPicker, { DateUtils } from 'react-day-picker';
-import './index.sass';
+import './index.css';
 import 'react-day-picker/lib/style.css';
 
 export default class RangeDayPicker extends React.Component {

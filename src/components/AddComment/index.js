@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import './style.sass';
+import './style.css';
 
 class AddComment extends Component {
   constructor(props) {
