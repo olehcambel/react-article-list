@@ -1,0 +1,2 @@
+export const ARTICLE_REMOVE = 'ARTICLE_REMOVE'
+export const INCREMENT = 'INCREMENT'
