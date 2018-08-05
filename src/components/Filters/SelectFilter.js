@@ -1,32 +1,40 @@
-import React, {Component} from 'react'
+import React from 'react';
 
 import Select from 'react-select';
-// import 'react-select/dist/react-select.css';
+import { connect } from 'react-redux';
+import { changeSelection } from '../../AC';
 
-class SelectFilter extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      selection: null
-    };
-    this.changeSelected = this.changeSelected.bind(this);
+const SelectFilter = ({ changeSelection, selection, articles }) => {
+  const options = articles.map(article => ({
+    label: article.title,
+    value: article.id
+  }));
 
-  }
+  return (
+    <Select
+      onChange={changeSelection}
+      value={selection}
+      options={options}
+      isMulti
+    />
+  );
+};
 
-  render() {
-    return(
-      <Select
-          onChange={this.changeSelected}
-          value={this.state.selection}
-          options={this.props.options}
-          // multi
-        />
-    )
-  }
+const mapStateToProps = state => {
+  return {
+    articles: state.articles,
+    selection: state.selection
+  };
+};
 
-  changeSelected(selection) {
-    this.setState({ selection });
-  }
-}
+const mapDispatchToProps = dispatch => {
+  return {
+    changeSelection: selection =>
+      dispatch(changeSelection(selection.map(s => s.value)))
+  };
+};
 
-export default SelectFilter
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SelectFilter);

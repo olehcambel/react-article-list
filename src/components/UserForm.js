@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 
 class UserForm extends Component {
   constructor(props) {
@@ -10,14 +10,14 @@ class UserForm extends Component {
 
   render() {
     return (
-      <div>
+      <Fragment>
         <h1>Hello</h1>{' '}
         <input
           type="text"
           value={this.state.username}
           onChange={this.handleUserChange}
         />
-      </div>
+      </Fragment>
     );
   }
 

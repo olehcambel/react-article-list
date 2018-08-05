@@ -1,26 +1,13 @@
-import React, {Component} from 'react'
+import React, { Fragment } from 'react';
 
 import RangeDayPicker from './RangeDayPicker';
 import SelectFilter from './SelectFilter';
 
-class Filters extends Component {
-  
+const Filters = () => (
+  <Fragment>
+    <SelectFilter />
+    <RangeDayPicker />
+  </Fragment>
+);
 
-  render() {
-    const options = this.props.articles.map(article => ({
-      label: article.title,
-      value: article.id
-    }));
-    return(
-      <div>
-         <SelectFilter options={options} />
-        <RangeDayPicker />
-
-      </div>
-    )
-  }
-
- 
-}
-
-export default Filters
+export default Filters;

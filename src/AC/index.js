@@ -12,3 +12,10 @@ export  function removeArticle(id) {
   }
 }
 
+export function changeSelection(selection) {
+  return {
+    type: types.FILTER_RANGE_SELECTION,
+    payload: {selection}
+  }
+}
+

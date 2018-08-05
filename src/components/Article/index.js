@@ -4,14 +4,14 @@ import PropTypes from 'prop-types';
 import './style.css';
 import CommentList from '../CommentList';
 
-import {connect} from 'react-redux'
-import {removeArticle} from '../../AC'
+import { connect } from 'react-redux';
+import { removeArticle } from '../../AC';
 
 class Article extends PureComponent {
   render() {
     const { article, isOpen, toggleOpen } = this.props;
     return (
-      <div>
+      <li>
         <h3> {article.title} </h3>
         <button onClick={toggleOpen}>{isOpen ? 'close' : 'open'}</button>
         <button onClick={this.handleRemove}> remove Article </button>
@@ -25,7 +25,7 @@ class Article extends PureComponent {
         >
           {this.props.isOpen && this.getBody()}
         </ReactCSSTransitionGroup>
-      </div>
+      </li>
     );
   }
 
@@ -41,11 +41,11 @@ class Article extends PureComponent {
   }
 
   handleRemove = () => {
-    const {removeArticle, article} = this.props
-    removeArticle(article.id)
+    const { removeArticle, article } = this.props;
+    removeArticle(article.id);
 
-    console.log('removing')
-  }
+    console.log('removing');
+  };
 }
 
 Article.propTypes = {
@@ -70,5 +70,8 @@ Article.defaultProps = {
   isOpen: false
 };
 
-export default connect(null,{removeArticle})(Article);
+export default connect(
+  null,
+  { removeArticle }
+)(Article);
 // export default toggleOpen(Article);
