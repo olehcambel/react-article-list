@@ -30,11 +30,28 @@ Article.propTypes = {
 
 const mapStateToProps = state => {
   const { selection } = state.filters;
+  const { from, to } = state.filters.period;
+  const fromParse = Date.parse(String(from));
+  const toParse = Date.parse(String(to));
+
+  let filterArticle =
+    selection && selection.length
+      ? state.articles.filter(a => selection.includes(a.id))
+      : state.articles;
+
+  filterArticle =
+    from && to
+      ? filterArticle.filter(a => {
+          return (
+            fromParse <= Date.parse(a.date) && Date.parse(a.date) <= toParse
+          );
+        })
+      : filterArticle;
+
   return {
-    articles:
-      selection && selection.length
-        ? state.articles.filter(a => selection.includes(a.id))
-        : state.articles
+    articles: filterArticle,
+    from,
+    to
   };
 };
 

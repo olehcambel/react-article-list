@@ -19,3 +19,10 @@ export function changeSelection(selection) {
   }
 }
 
+export function changePeriod(period) {
+  return {
+    type: types.FILTER_RANGE_PERIOD,
+    payload: {period}
+  }
+}
+
