@@ -10,10 +10,11 @@ const SelectFilter = ({ changeSelection, selection, articles }) => {
     value: article.id
   }));
 
+
   return (
     <Select
       onChange={changeSelection}
-      value={selection}
+      // value={value="hoh"}
       options={options}
       isMulti
     />
