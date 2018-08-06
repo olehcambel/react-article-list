@@ -8,7 +8,7 @@ import {filtratedArticlesSelector} from '../selectors'
 const ArticleList = ({ accordion, currentItemId, articles }) => {
   return (
     <ul>
-      {articles.map(article => (
+      {Object.values(articles).map(article => (
         <Article
           key={article.id}
           article={article}

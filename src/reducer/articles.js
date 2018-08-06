@@ -1,10 +1,21 @@
-import {normalizrArticles as staticArticles} from '../fixtures';
+import { normalizrArticles as staticArticles } from '../fixtures';
 import * as types from '../constants';
 
-export default (articleState = staticArticles, action) => {
+import omit from 'lodash/omit'
+
+const articlesMap = staticArticles.reduce(
+  (arr, article) => ({
+    ...arr,
+    [article.id]: article
+  }),
+  {}
+);
+
+export default (articleState = articlesMap, action) => {
   switch (action.type) {
     case types.ARTICLE_REMOVE:
-      return articleState.filter(article => article.id !== action.payload.id);
+      return omit(articleState, action.payload.id)
+      // return articleState.filter(article => article.id !== action.payload.id);
     default:
       return articleState;
   }

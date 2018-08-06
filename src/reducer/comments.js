@@ -2,8 +2,8 @@ import { normalizrComments as staticComments } from '../fixtures';
 // import * as types from '../constants';
 
 const commentsMap = staticComments.reduce(
-  (acc, comment) => ({
-    ...acc,
+  (arr, comment) => ({
+    ...arr,
     [comment.id]: comment
   }),
   {}

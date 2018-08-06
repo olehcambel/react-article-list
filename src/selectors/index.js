@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
-const articlesGetter = state => state.articles;
+const articlesGetter = state => Object.values(state.articles);
 const filtersGetter = state => state.filters;
 
 const commentsGetter = state => state.comments;

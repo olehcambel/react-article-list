@@ -3,12 +3,17 @@ import React from 'react';
 import Select from 'react-select';
 import { connect } from 'react-redux';
 import { changeSelection } from '../../AC';
+// import mapValue from 'lodash/mapValues'
 
 const SelectFilter = ({ changeSelection, selection, articles }) => {
-  const options = articles.map(article => ({
-    label: article.title,
+  const options = Object.values(articles).map(article => ({
+       label: article.title,
     value: article.id
-  }));
+  }))
+  // const options = articles.map(article => ({
+  //   label: article.title,
+  //   value: article.id
+  // }));
 
 
   return (
