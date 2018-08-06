@@ -1,4 +1,4 @@
-import staticArticles from '../fixtures';
+import {normalizrArticles as staticArticles} from '../fixtures';
 import * as types from '../constants';
 
 export default (articleState = staticArticles, action) => {

@@ -5,14 +5,17 @@ import Filters from './Filters';
 import ArticleList from './ArticleList';
 import UserForm from './UserForm';
 import Counter from './Counter';
+import ErrorBoundary from './ErrorBoundary';
 
 const App = () => (
-  <div>
+  <React.Fragment>
     <Counter />
     <UserForm />
     <Filters articles={[]} />
-    <ArticleList />
-  </div>
+    <ErrorBoundary>
+      <ArticleList />
+    </ErrorBoundary>
+  </React.Fragment>
 );
 
 export default App;

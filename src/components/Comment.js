@@ -1,8 +1,9 @@
 import React from 'react';
-
 import PropTypes from 'prop-types';
-
+import { connect } from 'react-redux';
 import '../styles.css';
+import {commentSelectorRepo} from '../selectors'
+
 
 const Comment = ({ comment }) => {
   return (
@@ -13,6 +14,7 @@ const Comment = ({ comment }) => {
 };
 
 Comment.propTypes = {
+  id: PropTypes.string.isRequired,
   comment: PropTypes.shape({
     text: PropTypes.string,
     user: PropTypes.string
@@ -20,10 +22,26 @@ Comment.propTypes = {
 };
 
 Comment.defaultProps = {
-  comment: [{
-    text: 'nothing',
-    user: 'noname'
-  }]
+  comment: [
+    {
+      text: 'nothing',
+      user: 'noname'
+    }
+  ]
+};
+
+const mapStateToProps = () => {
+  const commentSelector = commentSelectorRepo()
+
+  return (state, ownProps) => ({
+    comment: commentSelector(state, ownProps)
+  })
 }
 
-export default Comment;
+// (state, ownProps) => {
+//   return {
+//     comment: commentSelector(state, ownProps)
+//   };
+// };
+
+export default connect(mapStateToProps)(Comment);

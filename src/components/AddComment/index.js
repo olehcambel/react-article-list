@@ -30,7 +30,6 @@ class AddComment extends Component {
           value={message}
           onChange={this.handleChange.bind(this, 'message')}
         />
-        <br />
         <input disabled={isError} type="submit" value="Create" />
       </form>
     );
