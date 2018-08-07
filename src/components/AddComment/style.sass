@@ -1,4 +1,61 @@
-.error
-  border: 2px dashed red
-.passed
-  border: 1px dotted green
+$padding: 12px 20px
+$border-radius: 4px
+$success-border: 2px solid #ccc
+$error-border: 2px solid #555
+
+.commentForm
+  width: 500px
+  margin: auto
+  .form
+    &__input
+      width: 100%
+      background-color: white
+      padding: $padding
+      border: $success-border
+      box-sizing: border-box
+
+      margin: 8px 0
+      outline: none
+      &:focus
+        background-color: lightblue
+      &-error
+        @extend .form__input
+        border: $error-border
+
+    &__area
+      width: 100%
+      background-color: white
+      padding: $padding
+      border: $success-border
+      box-sizing: border-box
+
+      height: 150px
+      border-radius: $border-radius
+      font-size: 16px
+      resize: none
+      &:focus
+        background-color: lightblue
+      &-error
+        @extend .form__area
+        border: $error-border
+
+
+    &__submit
+      @mixin submit
+        background-color: #4CAF50
+        color: white
+        padding: $padding
+        border: none
+        border-radius: $border-radius
+        cursor: pointer
+        float: right
+        width: 100%
+      @include submit
+      &:hover
+        background-color: #45a049
+      &-error
+        @include submit
+        background-color: lightgrey
+        cursor: not-allowed
+    
+  
