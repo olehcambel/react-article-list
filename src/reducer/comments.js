@@ -1,24 +1,14 @@
 import { normalizrComments as staticComments } from '../fixtures';
 import * as types from '../constants';
+import { arrToMap } from '../helpers';
 
-const commentsMap = staticComments.reduce(
-  (arr, comment) => ({
-    ...arr,
-    [comment.id]: comment
-  }),
-  {}
-);
-
-export default (commentsState = commentsMap, action) => {
+export default (commentsState = arrToMap(staticComments), action) => {
   switch (action.type) {
     case types.COMMENT_ADD:
       return {
         ...commentsState,
-        [action.payload.id]: action.payload
-
-
-
-      }
+        [action.uuid]: { ...action.payload.comment, id: action.uuid }
+      };
 
     default:
       return commentsState;

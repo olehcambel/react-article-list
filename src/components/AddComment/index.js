@@ -10,11 +10,11 @@ const AddComment = ({ onSaveComment }) => (
 );
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  const articleId = ownProps.id;
   return {
-    onSaveComment: ({ user, message }) => {
+    // or only (comment) with values #comment ?
+    onSaveComment: ({ user, message: text }) => {
       dispatch(
-        commentAdd({ user: user.value, text: message.value, articleId })
+        commentAdd({ user: user.value, text: text.value }, ownProps.articleId)
       );
     }
   };

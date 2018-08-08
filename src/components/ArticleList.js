@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import accordion from '../decorators/accordion';
 import Article from './Article';
 import { connect } from 'react-redux';
-import {filtratedArticlesSelector} from '../selectors'
+import { filtratedArticlesSelector } from '../selectors';
 
 const ArticleList = ({ accordion, currentItemId, articles }) => {
   return (
     <ul>
-      {Object.values(articles).map(article => (
+      {articles.map(article => (
         <Article
           key={article.id}
           article={article}
@@ -26,8 +26,7 @@ Article.propTypes = {
   accordion: PropTypes.func
 };
 
-const mapStateToProps = (state) => {
- 
+const mapStateToProps = state => {
   return {
     articles: filtratedArticlesSelector(state)
   };

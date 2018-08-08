@@ -1,6 +1,8 @@
 import { createSelector } from 'reselect';
+import {mapToArr} from '../helpers'
 
-const articlesGetter = state => Object.values(state.articles);
+
+const articlesGetter = state => state.articles
 const filtersGetter = state => state.filters;
 
 const commentsGetter = state => state.comments;
@@ -18,7 +20,7 @@ export const filtratedArticlesSelector = createSelector(
     const fromParse = Date.parse(String(from));
     const toParse = Date.parse(String(to));
 
-    return articles.filter(article => {
+    return mapToArr(articles).filter(article => {
       const published = Date.parse(String(article.date));
 
       return (

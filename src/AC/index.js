@@ -12,10 +12,11 @@ export function removeArticle(id) {
   };
 }
 
-export function commentAdd(data) {
+export function commentAdd(comment, articleId) {
   return {
     type: types.COMMENT_ADD,
-    payload: { ...data }
+    payload: { comment, articleId },
+    getId: true
   };
 }
 

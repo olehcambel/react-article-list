@@ -91,6 +91,7 @@ export default class Form extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
+    // or to pass only value from each element #comment ?
     this.props.onSaveComment(e.target.elements);
 
     this.setState({
