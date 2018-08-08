@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-
 import './style.css';
 import { FormErrors } from './FormErrors';
+import debounce from 'lodash/debounce';
 
 export default class Form extends Component {
+  validateFieldThrottle = debounce(this.validateField, 450);
   state = {
     user: '',
     message: '',
@@ -52,25 +53,11 @@ export default class Form extends Component {
     );
   }
 
-  handleSubmit = e => {
-    e.preventDefault();
-    this.props.onSaveComment(e.target.elements);
-
-    this.setState({
-      user: '',
-      message: '',
-      formErrors: { user: '', message: '' },
-      userValid: false,
-      messageValid: false,
-      formValid: false
-    });
-  };
-
   handleUserInput = e => {
     const name = e.target.name;
     const value = e.target.value;
     this.setState({ [name]: value }, () => {
-      this.validateField(name, value);
+      this.validateFieldThrottle(name, value);
     });
   };
 
@@ -79,12 +66,12 @@ export default class Form extends Component {
 
     switch (fieldName) {
       case 'user':
-        userValid = value.match(/^\w{2,8}$/gi);
-        formErrors.user = userValid ? '' : ' should be [2-8]';
+        userValid = value.match(/^[a-z0-9]{2,8}$/gi);
+        formErrors.user = userValid ? '' : ' should be [a-z0-9]{2-8}';
         break;
       case 'message':
-        messageValid = value.match(/^\w{5,25}$/gi);
-        formErrors.message = messageValid ? '' : ' should be [5,25]';
+        messageValid = value.match(/^[\S\s]{5,40}$/i);
+        formErrors.message = messageValid ? '' : ' should be [5,40]';
         break;
       default:
         break;
@@ -101,4 +88,18 @@ export default class Form extends Component {
   errorClass(error) {
     return error.length === 0 ? '' : '-error';
   }
+
+  handleSubmit = e => {
+    e.preventDefault();
+    this.props.onSaveComment(e.target.elements);
+
+    this.setState({
+      user: '',
+      message: '',
+      formErrors: { user: '', message: '' },
+      userValid: false,
+      messageValid: false,
+      formValid: false
+    });
+  };
 }

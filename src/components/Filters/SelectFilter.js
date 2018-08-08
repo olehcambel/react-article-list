@@ -7,14 +7,13 @@ import { changeSelection } from '../../AC';
 
 const SelectFilter = ({ changeSelection, selection, articles }) => {
   const options = Object.values(articles).map(article => ({
-       label: article.title,
+    label: article.title,
     value: article.id
-  }))
+  }));
   // const options = articles.map(article => ({
   //   label: article.title,
   //   value: article.id
   // }));
-
 
   return (
     <Select

@@ -35,7 +35,7 @@ class Article extends PureComponent {
       <section>
         {article.text} |
         <h3>creation date: {new Date(article.date).toDateString()} </h3>
-        <CommentList comments={article.comments} />
+        <CommentList comments={article.comments} id={article.id} />
       </section>
     );
   }

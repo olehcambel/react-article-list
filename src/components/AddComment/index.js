@@ -1,7 +1,7 @@
 import React from 'react';
 import Form from './Form';
 import { connect } from 'react-redux';
-// import { v4 } from 'node-uuid';
+import { commentAdd } from '../../AC';
 
 const AddComment = ({ onSaveComment }) => (
   <div>
@@ -9,23 +9,18 @@ const AddComment = ({ onSaveComment }) => (
   </div>
 );
 
-const mapStateToProps = () => {
-  return {};
-};
-
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
+  const articleId = ownProps.id;
   return {
     onSaveComment: ({ user, message }) => {
-      // debugger;
-      // TODO:
-      //   create Action to dispatch and
-      //   pass through middleware for uuid to reducer
-      console.warn(user.value, message.value);
+      dispatch(
+        commentAdd({ user: user.value, text: message.value, articleId })
+      );
     }
   };
 };
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(AddComment);

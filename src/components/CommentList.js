@@ -6,7 +6,7 @@ import AddComment from './AddComment';
 
 class CommentList extends PureComponent {
   render() {
-    const { isOpen, toggleOpen, comments } = this.props;
+    const { isOpen, toggleOpen, comments, id } = this.props;
 
     return (
       <div>
@@ -19,7 +19,7 @@ class CommentList extends PureComponent {
           comments.length === 0 || (
             <ul>{comments.map(id => <Comment key={id} id={id} />)}</ul>
           )}
-        {!isOpen || <AddComment />}
+        {!isOpen || <AddComment id={id} />}
       </div>
     );
   }
