@@ -33,7 +33,7 @@ class Article extends PureComponent {
     const { article } = this.props;
     return (
       <section>
-        {article.text} |
+        {article.text} 
         <h3>creation date: {new Date(article.date).toDateString()} </h3>
         <CommentList article={article} id={article.id} />
       </section>

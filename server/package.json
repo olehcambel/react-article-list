@@ -10,6 +10,6 @@
     "express": "^4.16.3"
   },
   "scripts": {
-    "start": "supervisor server.js"
+    "start": "supervisor server.js --open"
   }
 }

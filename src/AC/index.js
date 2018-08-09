@@ -33,3 +33,10 @@ export function changePeriod(period) {
     payload: { period }
   };
 }
+
+export function loadAllArticles() {
+  return {
+    type: types.ARTICLE_LOAD_ALL,
+    callAPI: '/api/article'
+  }
+}
