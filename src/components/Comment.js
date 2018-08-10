@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import '../styles.css';
-import {commentSelectorRepo} from '../selectors'
-
+import { commentSelectorRepo } from '../selectors';
 
 const Comment = ({ comment }) => {
   return (
@@ -31,17 +30,11 @@ Comment.defaultProps = {
 };
 
 const mapStateToProps = () => {
-  const commentSelector = commentSelectorRepo()
+  const commentSelector = commentSelectorRepo();
 
   return (state, ownProps) => ({
     comment: commentSelector(state, ownProps)
-  })
-}
-
-// (state, ownProps) => {
-//   return {
-//     comment: commentSelector(state, ownProps)
-//   };
-// };
+  });
+};
 
 export default connect(mapStateToProps)(Comment);

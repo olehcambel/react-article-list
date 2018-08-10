@@ -3,11 +3,10 @@ import React from 'react';
 import Select from 'react-select';
 import { connect } from 'react-redux';
 import { changeSelection } from '../../AC';
-import {mapToArr} from '../../helpers'
+import { mapToArr } from '../../helpers';
 
 const SelectFilter = ({ changeSelection, selection, articles }) => {
-  // const options = Object.values(articles).map(article => ({
-    const options = articles.map(article => ({
+  const options = articles.map(article => ({
     label: article.title,
     value: article.id
   }));
@@ -24,9 +23,7 @@ const SelectFilter = ({ changeSelection, selection, articles }) => {
 
 const mapStateToProps = state => {
   return {
-    // articles: state.articles,
-    articles: mapToArr(state.articles),
-    // selection: state.selection
+    articles: mapToArr(state.articles.entities)
   };
 };
 
