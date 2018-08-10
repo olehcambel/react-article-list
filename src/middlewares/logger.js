@@ -10,7 +10,7 @@ const actionConsole = `background-color: #008CBA;
 // const nextConsole = 'font: 1.5em/1 Arial; color: #f44336;';
 
 export default store => next => action => {
-  console.group(action.type);
+  console.groupCollapsed(action.type);
   // console.log('%c prev state', prevConsole, store.getState());
   console.log('%c action', actionConsole, action);
   const returnValue = next(action);

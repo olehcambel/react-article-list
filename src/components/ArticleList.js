@@ -5,12 +5,14 @@ import Article from './Article';
 import { connect } from 'react-redux';
 import { filtratedArticlesSelector } from '../selectors';
 import { loadAllArticles } from '../AC';
+import Loader from './Loader';
 
 class ArticleList extends React.Component {
   state = {};
 
   render() {
-    const { accordion, currentItemId, articles } = this.props;
+    const { accordion, currentItemId, articles, loading } = this.props;
+    if (loading) return <Loader />;
     return (
       <ul>
         {articles.map(article => (
@@ -26,7 +28,8 @@ class ArticleList extends React.Component {
   }
 
   componentDidMount() {
-    this.props.loadAllArticles();
+    const { loaded, loading, loadAllArticles } = this.props;
+    if (!loaded || !loading) loadAllArticles();
   }
 }
 
@@ -38,7 +41,9 @@ Article.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    articles: filtratedArticlesSelector(state)
+    articles: filtratedArticlesSelector(state),
+    loading: state.articles.loading,
+    loaded: state.articles.loaded
   };
 };
 
