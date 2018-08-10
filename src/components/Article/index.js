@@ -2,10 +2,10 @@ import React, { PureComponent } from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import PropTypes from 'prop-types';
 import './style.css';
+import Loader from '../Loader';
 import CommentList from '../CommentList';
-
 import { connect } from 'react-redux';
-import { removeArticle } from '../../AC';
+import { removeArticle, loadArticle } from '../../AC';
 
 class Article extends PureComponent {
   render() {
@@ -23,17 +23,24 @@ class Article extends PureComponent {
           transitionAppearTimeout={500}
           component="div"
         >
-          {this.props.isOpen && this.getBody()}
+          {isOpen && !article.loading && this.getBody()}
+          {isOpen && article.loading && <Loader />}
         </ReactCSSTransitionGroup>
       </li>
     );
+  }
+
+  componentDidUpdate({ article, isOpen, loadArticle }) {
+    if (!isOpen && this.props.isOpen && !article.text && !article.loading) {
+      loadArticle(article.id);
+    }
   }
 
   getBody() {
     const { article } = this.props;
     return (
       <section>
-        {article.text} 
+        {article.text}
         <h3>creation date: {new Date(article.date).toDateString()} </h3>
         <CommentList article={article} id={article.id} />
       </section>
@@ -72,6 +79,5 @@ Article.defaultProps = {
 
 export default connect(
   null,
-  { removeArticle }
+  { removeArticle, loadArticle }
 )(Article);
-// export default toggleOpen(Article);

@@ -16,7 +16,7 @@ export default store => next => action => {
       )
       .catch(error => {
         console.log('%c error', 'color: red; font-size: 20px', error);
-        next({ type: type + types.FAIL, ...rest, error });
+        next({ type: type + types.FAIL, ...rest, response: error });
       });
   }, 3000);
 };

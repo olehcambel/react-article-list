@@ -11,10 +11,14 @@ const actionConsole = `background-color: #008CBA;
 
 export default store => next => action => {
   console.groupCollapsed(action.type);
+  console.timeEnd('time')
+
   // console.log('%c prev state', prevConsole, store.getState());
   console.log('%c action', actionConsole, action);
   const returnValue = next(action);
   // console.log('%c next state', nextConsole, store.getState());
+  console.time('time')
+
   console.groupEnd(action.type);
   return returnValue;
 };

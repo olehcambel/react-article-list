@@ -6,6 +6,7 @@ const ArticleRecord = Record({
   text: undefined,
   title: undefined,
   id: undefined,
+  loading: false,
   comments: []
 });
 
@@ -39,13 +40,23 @@ export default (articleState = defaultState, action) => {
       return articleState
         .set('entities', arrToMap(response, ArticleRecord))
         .set('loading', false)
-        .set('loaded', true)
-        
+        .set('loaded', true);
+
     case types.ARTICLE_LOAD_ALL + types.FAIL:
-      return articleState
-        // .set('entities', )
-        .set('loading', false)
-        .set('loaded', false)
+      return (
+        articleState
+          // .set('entities', )
+          .set('loading', false)
+          .set('loaded', false)
+      );
+
+    case types.ARTICLE_LOAD + types.START:
+      return articleState.setIn(['entities', payload.id, 'loading'], true);
+    case types.ARTICLE_LOAD + types.SUCCESS:
+      return articleState.setIn(
+        ['entities', payload.id],
+        new ArticleRecord(payload.response)
+      );
     default:
       return articleState;
   }
