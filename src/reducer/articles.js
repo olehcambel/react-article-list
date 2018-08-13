@@ -12,6 +12,7 @@ const ArticleRecord = Record({
 });
 
 const ReducerState = new Record({
+  error: '',
   loading: false,
   loaded: false,
   entities: new OrderedMap({})
@@ -40,23 +41,36 @@ export default (articleState = defaultState, action) => {
     case types.ARTICLE_LOAD_ALL + types.SUCCESS:
       return articleState
         .set('entities', arrToMap(payload.response, ArticleRecord))
+        .set('error', '')
         .set('loading', false)
         .set('loaded', true);
 
     case types.ARTICLE_LOAD_ALL + types.FAIL:
-      return (
-        articleState
-          // .set('entities', )
-          .set('loading', false)
-          .set('loaded', false)
-      );
+      ;
+      return articleState
+        .set('loading', false)
+        .set('loaded', true)
+        .set('error', action.payload.error);
 
     case types.ARTICLE_LOAD + types.START:
-      return articleState.setIn(['entities', payload.id, 'loading'], true);
+      return articleState
+        .setIn(['entities', payload.id, 'loading'], true)
+        .set('error', '');
+
     case types.ARTICLE_LOAD + types.SUCCESS:
       return articleState.setIn(
         ['entities', payload.id],
         new ArticleRecord(payload.response)
+      );
+
+    case types.ARTICLE_LOAD + types.FAIL:
+      ;
+      return (
+        articleState
+          // .set('entities', action.error)
+          .set('loading', false)
+          .set('loaded', true)
+          .set('error', action.payload.error)
       );
     default:
       return articleState;

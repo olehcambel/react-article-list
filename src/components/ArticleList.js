@@ -11,7 +11,9 @@ class ArticleList extends PureComponent {
   state = {};
 
   render() {
-    const { accordion, currentItemId, articles, loading } = this.props;
+    const { accordion, currentItemId, articles, loading, error } = this.props;
+
+    if (error) return <h1>{error.message}</h1>
     if (loading) return <Loader />;
     return (
       <ul>
@@ -43,7 +45,8 @@ const mapStateToProps = state => {
   return {
     articles: filtratedArticlesSelector(state),
     loading: state.articles.loading,
-    loaded: state.articles.loaded
+    loaded: state.articles.loaded,
+    error: state.articles.error
   };
 };
 

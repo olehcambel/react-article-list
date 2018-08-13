@@ -10,6 +10,8 @@ import { removeArticle, loadArticle } from '../../AC';
 class Article extends PureComponent {
   render() {
     const { article, isOpen, toggleOpen } = this.props;
+    if (isOpen && article.loading) return <Loader />;
+    ;
     return (
       <li>
         <h3> {article.title} </h3>
@@ -24,7 +26,6 @@ class Article extends PureComponent {
           component="div"
         >
           {isOpen && !article.loading && this.getBody()}
-          {isOpen && article.loading && <Loader />}
         </ReactCSSTransitionGroup>
       </li>
     );
