@@ -5,18 +5,21 @@ export default store => next => action => {
   const { callAPI, type, ...rest } = action;
   if (!callAPI) return next(action);
   next({
-    ...rest,
-    type: type + types.START
+    type: type + types.START,
+    payload: rest
   });
 
   setTimeout(() => {
     axios(callAPI)
       .then(response =>
-        next({ ...rest, type: type + types.SUCCESS, response: response.data })
+        next({
+          type: type + types.SUCCESS,
+          payload: { response: response.data, ...rest }
+        })
       )
       .catch(error => {
         console.log('%c error', 'color: red; font-size: 20px', error);
-        next({ type: type + types.FAIL, ...rest, response: error });
+        next({ type: type + types.FAIL, response: error, ...rest });
       });
-  }, 3000);
+  }, 1000);
 };

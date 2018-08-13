@@ -1,5 +1,4 @@
 import * as types from '../constants';
-import axios from 'axios';
 
 export function increment() {
   return {
@@ -44,26 +43,9 @@ export function loadAllArticles() {
 }
 
 export function loadArticle(id) {
-  return dispatch => {
-    dispatch({
-      type: types.ARTICLE_LOAD + types.START,
-      payload: { id }
-    });
-
-    setTimeout(() => {
-      axios(`/api/article/${id}`)
-        .then(response =>
-          dispatch({
-            type: types.ARTICLE_LOAD + types.SUCCESS,
-            payload: { id, response: response.data }
-          })
-        )
-        .catch(error =>
-          dispatch({
-            type: types.ARTICLE_LOAD + types.FAIL,
-            payload: { id, error }
-          })
-        );
-    }, 3000);
+  return {
+    type: types.ARTICLE_LOAD,
+    callAPI: `/api/article/${id}`,
+    id
   };
 }

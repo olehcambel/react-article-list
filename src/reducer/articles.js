@@ -5,6 +5,7 @@ import { Record, OrderedMap } from 'immutable';
 const ArticleRecord = Record({
   text: undefined,
   title: undefined,
+  date: undefined,
   id: undefined,
   loading: false,
   comments: []
@@ -19,7 +20,7 @@ const ReducerState = new Record({
 const defaultState = new ReducerState();
 
 export default (articleState = defaultState, action) => {
-  const { payload, uuid, response } = action;
+  const { payload, uuid } = action;
 
   switch (action.type) {
     case types.ARTICLE_REMOVE:
@@ -38,7 +39,7 @@ export default (articleState = defaultState, action) => {
 
     case types.ARTICLE_LOAD_ALL + types.SUCCESS:
       return articleState
-        .set('entities', arrToMap(response, ArticleRecord))
+        .set('entities', arrToMap(payload.response, ArticleRecord))
         .set('loading', false)
         .set('loaded', true);
 

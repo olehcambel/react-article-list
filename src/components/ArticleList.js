@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import accordion from '../decorators/accordion';
 import Article from './Article';
@@ -7,7 +7,7 @@ import { filtratedArticlesSelector } from '../selectors';
 import { loadAllArticles } from '../AC';
 import Loader from './Loader';
 
-class ArticleList extends React.Component {
+class ArticleList extends PureComponent {
   state = {};
 
   render() {
