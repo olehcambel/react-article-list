@@ -46,6 +46,14 @@ export function loadArticle(id) {
   return {
     type: types.ARTICLE_LOAD,
     callAPI: `/api/article/${id}`,
-    id
+    payload: { id }
+  };
+}
+
+export function loadArticleComments(articleId) {
+  return {
+    type: types.LOAD_ARTICLE_COMMENTS,
+    callAPI: `/api/comment?article=${articleId}`,
+    payload: { articleId }
   };
 }

@@ -1,10 +1,10 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import spinner from '../puppy-dog-spinner.gif';
 
 const Loader = props => (
-  <Fragment>
+  <div>
     <img src={spinner} alt='loading..' />
-  </Fragment>
+  </div>
 );
 
 export default Loader;

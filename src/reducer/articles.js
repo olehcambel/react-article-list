@@ -9,6 +9,9 @@ const ArticleRecord = Record({
   id: undefined,
   error: undefined,
   loading: false,
+  commentsLoading: false,
+  commentsLoaded: false,
+  commentsError: '',
   comments: []
 });
 
@@ -22,7 +25,7 @@ const ReducerState = new Record({
 const defaultState = new ReducerState();
 
 export default (articleState = defaultState, action) => {
-  const { payload, uuid } = action;
+  const { payload, uuid, response, error } = action;
 
   switch (action.type) {
     case types.ARTICLE_REMOVE:
@@ -41,7 +44,7 @@ export default (articleState = defaultState, action) => {
 
     case types.ARTICLE_LOAD_ALL + types.SUCCESS:
       return articleState
-        .set('entities', arrToMap(payload.response, ArticleRecord))
+        .set('entities', arrToMap(response, ArticleRecord))
         .set('loading', false)
         .set('loaded', true);
 
@@ -49,7 +52,7 @@ export default (articleState = defaultState, action) => {
       return articleState
         .set('loading', false)
         .set('loaded', true)
-        .set('error', payload.error);
+        .set('error', error);
 
     case types.ARTICLE_LOAD + types.START:
       return articleState
@@ -58,21 +61,34 @@ export default (articleState = defaultState, action) => {
 
     case types.ARTICLE_LOAD + types.SUCCESS:
       return articleState.setIn(
-        ['entities', payload.id],
-        new ArticleRecord(payload.response)
+        ['entities', response.id],
+        new ArticleRecord(response)
       );
 
     case types.ARTICLE_LOAD + types.FAIL:
-      return (
-        articleState
-          // .set('entities', action.error)
-          .set('loading', false)
-          .set('loaded', true)
-          .setIn(['entities', payload.id, 'error'], payload.error)
+      return articleState
+        .set('loading', false)
+        .set('loaded', true)
+        .setIn(['entities', payload.id, 'error'], error);
+
+    case types.LOAD_ARTICLE_COMMENTS + types.START:
+      return articleState.setIn(
+        ['entities', payload.articleId, 'commentsLoading'],
+        true
       );
+
+    case types.LOAD_ARTICLE_COMMENTS + types.SUCCESS:
+      return articleState
+        .setIn(['entities', payload.articleId, 'commentsLoading'], false)
+        .setIn(['entities', payload.articleId, 'commentsLoaded'], true);
+
+    case types.LOAD_ARTICLE_COMMENTS + types.FAIL:
+      return articleState
+        .setIn(['entities', payload.articleId, 'commentsLoading'], false)
+        .setIn(['entities', payload.articleId, 'commentsLoaded'], false)
+        .setIn(['entities', payload.articleId, 'commentsError'], error);
+
     default:
       return articleState;
   }
 };
-
-// store.getState().articles.valueSeq().toArray()
