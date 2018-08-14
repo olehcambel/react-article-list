@@ -7,6 +7,7 @@ const ArticleRecord = Record({
   title: undefined,
   date: undefined,
   id: undefined,
+  error: undefined,
   loading: false,
   comments: []
 });
@@ -36,26 +37,24 @@ export default (articleState = defaultState, action) => {
       );
 
     case types.ARTICLE_LOAD_ALL + types.START:
-      return articleState.set('loading', true);
+      return articleState.set('loading', true).set('error', '');
 
     case types.ARTICLE_LOAD_ALL + types.SUCCESS:
       return articleState
         .set('entities', arrToMap(payload.response, ArticleRecord))
-        .set('error', '')
         .set('loading', false)
         .set('loaded', true);
 
     case types.ARTICLE_LOAD_ALL + types.FAIL:
-      ;
       return articleState
         .set('loading', false)
         .set('loaded', true)
-        .set('error', action.payload.error);
+        .set('error', payload.error);
 
     case types.ARTICLE_LOAD + types.START:
       return articleState
         .setIn(['entities', payload.id, 'loading'], true)
-        .set('error', '');
+        .setIn(['entities', payload.id, 'error'], '');
 
     case types.ARTICLE_LOAD + types.SUCCESS:
       return articleState.setIn(
@@ -64,15 +63,16 @@ export default (articleState = defaultState, action) => {
       );
 
     case types.ARTICLE_LOAD + types.FAIL:
-      ;
       return (
         articleState
           // .set('entities', action.error)
           .set('loading', false)
           .set('loaded', true)
-          .set('error', action.payload.error)
+          .setIn(['entities', payload.id, 'error'], payload.error)
       );
     default:
       return articleState;
   }
 };
+
+// store.getState().articles.valueSeq().toArray()

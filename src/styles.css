@@ -6,6 +6,9 @@ body {
   html h1,
   body h1 {
     color: tomato; }
+  html h2,
+  body h2 {
+    color: #ff8e7a; }
 
 .Comment__li {
   list-style-type: desc; }

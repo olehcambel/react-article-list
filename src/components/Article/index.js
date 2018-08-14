@@ -10,8 +10,10 @@ import { removeArticle, loadArticle } from '../../AC';
 class Article extends PureComponent {
   render() {
     const { article, isOpen, toggleOpen } = this.props;
+    if (article.error) {
+      return <h2>{article.error.message}</h2>;
+    }
     if (isOpen && article.loading) return <Loader />;
-    ;
     return (
       <li>
         <h3> {article.title} </h3>

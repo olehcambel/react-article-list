@@ -1,3 +1,5 @@
+$error: tomato
+
 html,
 body 
   background-color: papayawhip
@@ -5,7 +7,9 @@ body
   margin-bottom: 5px
 
   h1 
-    color: tomato
+    color: $error
+  h2
+    color: lighten($error, 10%)
   
 .Comment
   &__li
