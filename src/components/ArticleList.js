@@ -5,7 +5,9 @@ import Article from './Article';
 import { connect } from 'react-redux';
 import { filtratedArticlesSelector } from '../selectors';
 import { loadAllArticles } from '../AC';
-import Loader from './Loader';
+import {Loader} from './Loader'
+import { NavLink } from 'react-router-dom';
+
 
 class ArticleList extends PureComponent {
   state = {};
@@ -14,7 +16,7 @@ class ArticleList extends PureComponent {
     const { accordion, currentItemId, articles, loading, error } = this.props;
 
     if (error) return <h1>{error.message}</h1>
-    if (loading) return <Loader />;
+    if (loading) return <Loader size='large' />;
     return (
       <ul>
         {articles.map(article => (

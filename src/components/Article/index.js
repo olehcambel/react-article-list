@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import PropTypes from 'prop-types';
 import './style.css';
-import Loader from '../Loader';
+import {Loader} from '../Loader';
 import CommentList from '../CommentList';
 import { connect } from 'react-redux';
 import { removeArticle, loadArticle } from '../../AC';

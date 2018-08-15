@@ -4,7 +4,7 @@ import toggleOpen from '../decorators/toggleOpen';
 import Comment from './Comment';
 import AddComment from './AddComment';
 import { connect } from 'react-redux';
-import Loader from './Loader';
+import {Loader} from './Loader'
 import { loadArticleComments } from '../AC';
 import ToggleButton from './ToggleButton';
 
