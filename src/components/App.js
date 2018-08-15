@@ -1,10 +1,18 @@
 import React, { Fragment } from 'react';
 import Filters from './Filters';
-import ArticleList from './ArticleList';
+// import ArticleList from './ArticleList';
 import UserForm from './UserForm';
 import Counter from './Counter';
-import ErrorBoundary from './ErrorBoundary';
-import { HashRouter as Router, Route, NavLink } from 'react-router-dom';
+// import ErrorBoundary from './ErrorBoundary';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  NavLink
+} from 'react-router-dom';
+import Articles from './routes/Articles';
+import NotFound from './routes/NotFound';
+/* const App = ({ match: { params } }) => ( */
 
 const App = () => (
   <Router>
@@ -28,11 +36,14 @@ const App = () => (
         </div>
       </div>
       <UserForm />
-      <Route path="/counter" component={Counter} />
-      <Route path="/filters" component={Filters} />
-      <ErrorBoundary>
-        <Route path="/articles" component={ArticleList} />
-      </ErrorBoundary>
+      <Switch>
+        <Route path="/counter" component={Counter} />
+        <Route path="/filters" component={Filters} />
+        {/* <ErrorBoundary> */}
+          <Route path="/articles" component={Articles} />
+        {/* </ErrorBoundary> */}
+        <Route path="*" component={NotFound} />
+      </Switch>
     </Fragment>
   </Router>
 );

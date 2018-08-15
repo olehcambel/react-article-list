@@ -1,31 +1,31 @@
-import React, {PureComponent} from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import accordion from '../decorators/accordion';
 import Article from './Article';
 import { connect } from 'react-redux';
 import { filtratedArticlesSelector } from '../selectors';
 import { loadAllArticles } from '../AC';
-import {Loader} from './Loader'
+import { Loader } from './Loader';
 import { NavLink } from 'react-router-dom';
-
 
 class ArticleList extends PureComponent {
   state = {};
 
   render() {
-    const { accordion, currentItemId, articles, loading, error } = this.props;
+    const { articles, loading, error } = this.props;
 
-    if (error) return <h1>{error.message}</h1>
-    if (loading) return <Loader size='large' />;
+    if (error) return <h1>{error.message}</h1>;
+    if (loading) return <Loader size="large" />;
     return (
       <ul>
         {articles.map(article => (
-          <Article
-            key={article.id}
-            article={article}
-            isOpen={currentItemId === article.id}
-            toggleOpen={accordion.bind(this, article.id)}
-          />
+          <li key={article.id}>
+            <NavLink
+              to={`/articles/${article.id}`}
+              activeStyle={{ color: 'pink' }}
+            >
+              {article.title}
+            </NavLink>
+          </li>
         ))}
       </ul>
     );
@@ -38,7 +38,7 @@ class ArticleList extends PureComponent {
 }
 
 Article.propTypes = {
-  articles: PropTypes.object,
+  articles: PropTypes.array,
   currentItemId: PropTypes.string,
   accordion: PropTypes.func
 };
@@ -55,4 +55,11 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   { loadAllArticles }
-)(accordion(ArticleList));
+)(ArticleList);
+
+// <Article
+//   key={article.id}
+//   article={article}
+//   isOpen={currentItemId === article.id}
+//   toggleOpen={accordion.bind(this, article.id)}
+// />
