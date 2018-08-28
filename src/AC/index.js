@@ -58,10 +58,18 @@ export function loadArticleComments(articleId) {
   };
 }
 
-export function commentLoadPerPage(page) {
-  return {
-    type: types.COMMENT_LOAD_PER_PAGE,
-    callAPI: `/api/comment?limit=5&offset=${(page - 1) * 5}`,
-    payload: { page }
+export function commentLoadPerPage(page, limit) {
+  return (dispatch, getState) => {
+    const {
+      comments: { pagination }
+    } = getState();
+    if (pagination.getIn([page, 'loading']) || pagination.getIn([page, 'ids']))
+      return;
+
+    dispatch({
+      type: types.COMMENT_LOAD_PER_PAGE,
+      callAPI: `/api/comment?limit=${limit}&offset=${(page - 1) * limit}`,
+      payload: { page }
+    });
   };
 }
