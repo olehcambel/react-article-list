@@ -57,3 +57,11 @@ export function loadArticleComments(articleId) {
     payload: { articleId }
   };
 }
+
+export function commentLoadPerPage(page) {
+  return {
+    type: types.COMMENT_LOAD_PER_PAGE,
+    callAPI: `/api/comment?limit=5&offset=${(page - 1) * 5}`,
+    payload: { page }
+  };
+}

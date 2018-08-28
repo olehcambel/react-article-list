@@ -11,6 +11,7 @@ import {
   NavLink
 } from 'react-router-dom';
 import Articles from './routes/Articles';
+import Comments from './routes/Comments';
 import NotFound from './routes/NotFound';
 /* const App = ({ match: { params } }) => ( */
 
@@ -34,13 +35,19 @@ const App = () => (
             ArticleList
           </NavLink>
         </div>
+        <div>
+          <NavLink activeStyle={{ color: 'pink' }} to="/comments/1">
+            Comments
+          </NavLink>
+        </div>
       </div>
       <UserForm />
       <Switch>
         <Route path="/counter" component={Counter} />
         <Route path="/filters" component={Filters} />
         {/* <ErrorBoundary> */}
-          <Route path="/articles" component={Articles} />
+        <Route path="/articles" component={Articles} />
+        <Route path="/comments/:page" component={Comments} />
         {/* </ErrorBoundary> */}
         <Route path="*" component={NotFound} />
       </Switch>
