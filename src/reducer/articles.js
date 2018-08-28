@@ -69,7 +69,7 @@ export default (articleState = defaultState, action) => {
       return articleState
         .set('loading', false)
         .set('loaded', true)
-        .setIn(['entities', payload.id, 'error'], error);
+        .setIn(['entities', payload.id, 'error'], payload.error);
 
     case types.LOAD_ARTICLE_COMMENTS + types.START:
       return articleState.setIn(

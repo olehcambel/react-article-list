@@ -12,7 +12,6 @@ class Articles extends React.Component {
         <ArticleList />
         <Route path="/articles" render={this.getIndex} exact />
         <Route path="/articles/:id" render={this.getArticle} />
-        {/* <Route path="/articles/:id" component={Article} /> */}
       </div>
     );
   }
@@ -24,7 +23,7 @@ class Articles extends React.Component {
   };
 
   getIndex = () => {
-    return  <h2> SELECT_ARTICLE </h2>
+    return <h2> SELECT_ARTICLE </h2>;
   };
 }
 

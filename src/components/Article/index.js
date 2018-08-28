@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { removeArticle, loadArticle } from '../../AC';
 
 class Article extends PureComponent {
-  state ={}
+  state = {};
   render() {
     const { article, isOpen, toggleOpen } = this.props;
     if (!article) return null;
@@ -35,20 +35,10 @@ class Article extends PureComponent {
     );
   }
 
-
-componentDidMount() {
-  const {article, id, loadArticle} = this.props
-  if (!article || (!article.text && !article.loading)) loadArticle(id)
-}
-
-  // static getDerivedStateFromProps({ isOpen, loadArticle, article }) {
-  //   if (!article) return null;
-  //   if (isOpen && !article.text && !article.loading) {
-  //     loadArticle(article.id);
-  //     //  if (!isOpen && this.props.isOpen && !article.text && !article.loading) {
-  //   }
-  //   return null;
-  // }
+  componentDidMount() {
+    const { article, id, loadArticle } = this.props;
+    if (!article || (!article.text && !article.loading)) loadArticle(id);
+  }
 
   getBody() {
     const { article } = this.props;

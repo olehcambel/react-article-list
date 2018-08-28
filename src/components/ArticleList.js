@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import Article from './Article';
+// import Article from './Article';
 import { connect } from 'react-redux';
 import { filtratedArticlesSelector } from '../selectors';
 import { loadAllArticles } from '../AC';
@@ -9,12 +9,12 @@ import { NavLink } from 'react-router-dom';
 
 class ArticleList extends PureComponent {
   state = {};
-
   render() {
     const { articles, loading, error } = this.props;
 
     if (error) return <h1>{error.message}</h1>;
     if (loading) return <Loader size="large" />;
+
     return (
       <ul>
         {articles.map(article => (
@@ -37,7 +37,7 @@ class ArticleList extends PureComponent {
   }
 }
 
-Article.propTypes = {
+ArticleList.propTypes = {
   articles: PropTypes.array,
   currentItemId: PropTypes.string,
   accordion: PropTypes.func

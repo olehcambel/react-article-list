@@ -9,8 +9,8 @@ class CommentPagination extends Component {
   state = {};
 
   render() {
-    const { loading, comments } = this.props;
-    if (loading || !comments) return <Loader />;
+    const { total } = this.props;
+    if (!total) return <Loader />;
 
     return (
       <div>
@@ -31,7 +31,8 @@ class CommentPagination extends Component {
   }
 
   getComments() {
-    const { comments } = this.props;
+    const { comments, loading } = this.props;
+    if (!comments || loading) return <Loader />;
 
     return (
       <ul>

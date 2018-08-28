@@ -1,22 +1,19 @@
 import React, { Fragment } from 'react';
 import Filters from './Filters';
-// import ArticleList from './ArticleList';
 import UserForm from './UserForm';
 import Counter from './Counter';
-// import ErrorBoundary from './ErrorBoundary';
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  NavLink
-} from 'react-router-dom';
 import Articles from './routes/Articles';
 import Comments from './routes/Comments';
 import NotFound from './routes/NotFound';
+// import ErrorBoundary from './ErrorBoundary';
+import { Route, Switch, NavLink } from 'react-router-dom';
+import { ConnectedRouter} from 'react-router-redux';
+import history from '../history';
+
 /* const App = ({ match: { params } }) => ( */
 
 const App = () => (
-  <Router>
+  <ConnectedRouter history={history}>
     <Fragment>
       <div>
         <h2>Main menu</h2>
@@ -36,7 +33,7 @@ const App = () => (
           </NavLink>
         </div>
         <div>
-          <NavLink activeStyle={{ color: 'pink' }} to="/comments/1">
+          <NavLink activeStyle={{ color: 'pink' }} to="/comments">
             Comments
           </NavLink>
         </div>
@@ -47,12 +44,13 @@ const App = () => (
         <Route path="/filters" component={Filters} />
         {/* <ErrorBoundary> */}
         <Route path="/articles" component={Articles} />
-        <Route path="/comments/:page" component={Comments} />
+        <Route path="/comments" component={Comments} />
+        {/* <Redirect from="/comments" to="/comments/1" /> */}
         {/* </ErrorBoundary> */}
         <Route path="*" component={NotFound} />
       </Switch>
     </Fragment>
-  </Router>
+  </ConnectedRouter>
 );
 
 export default App;
