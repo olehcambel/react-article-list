@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import PropTypes from 'prop-types';
 import './style.css';
@@ -7,7 +7,7 @@ import CommentList from '../CommentList';
 import { connect } from 'react-redux';
 import { removeArticle, loadArticle } from '../../AC';
 
-class Article extends PureComponent {
+class Article extends Component {
   state = {};
   render() {
     const { article, isOpen, toggleOpen } = this.props;
@@ -90,5 +90,7 @@ const mapStateToProps = (state, ownProps) => {
 
 export default connect(
   mapStateToProps,
-  { removeArticle, loadArticle }
+  { removeArticle, loadArticle },
+  null,
+  { pure: false }
 )(Article);

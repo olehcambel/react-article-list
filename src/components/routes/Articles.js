@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import ArticleList from '../ArticleList';
 import Article from '../Article';
 import { Route } from 'react-router-dom';
+import { UserContext } from '../App';
 
 class Articles extends React.Component {
   state = {};
@@ -23,7 +24,16 @@ class Articles extends React.Component {
   };
 
   getIndex = () => {
-    return <h2> SELECT_ARTICLE </h2>;
+    return (
+      <UserContext.Consumer>
+        {context => (
+          <Fragment>
+            <h2> SELECT_ARTICLE </h2>
+            <h3>Context USER: {context.state.username}</h3>
+          </Fragment>
+        )}
+      </UserContext.Consumer>
+    );
   };
 }
 

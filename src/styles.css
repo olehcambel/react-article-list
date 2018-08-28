@@ -9,6 +9,9 @@ body {
   html h2,
   body h2 {
     color: #ff8e7a; }
+  html h3,
+  body h3 {
+    color: #ffb9ad; }
 
 .Comment__li {
   list-style-type: desc; }

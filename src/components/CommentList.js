@@ -1,46 +1,20 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import toggleOpen from '../decorators/toggleOpen';
 import Comment from './Comment';
 import AddComment from './AddComment';
 import { connect } from 'react-redux';
-import {Loader} from './Loader'
+import { Loader } from './Loader';
 import { loadArticleComments } from '../AC';
 import ToggleButton from './ToggleButton';
 
-const getBody = ({
-  article: { commentsLoading, commentsLoaded, commentsError, comments, id }
-}) => {
-  if (commentsError) return <h2>{commentsError.message}</h2>;
-  if (commentsLoading) return <Loader />;
-  if (!commentsLoaded) return null;
-
-  if (comments.length === 0)
-    return (
-      <Fragment>
-        <p>Be the first to comment.</p>
-        <AddComment articleId={id} />
-      </Fragment>
-    );
-  return (
-    <Fragment>
-      <ul>
-        {comments.map(id => (
-          <Comment key={id} id={id} />
-        ))}
-      </ul>
-      <AddComment articleId={id} />
-    </Fragment>
-  );
-};
-
-class CommentList extends PureComponent {
+class CommentList extends Component {
   render() {
     const { isOpen, toggleOpen, article } = this.props;
     return (
       <Fragment>
         <ToggleButton func={toggleOpen} isOpen={isOpen} label="comments" />
-        {isOpen && getBody({ article })}
+        {isOpen && this.getBody({ article })}
       </Fragment>
     );
   }
@@ -55,6 +29,32 @@ class CommentList extends PureComponent {
       loadArticleComments(id);
     }
   }
+
+  getBody = ({
+    article: { commentsLoading, commentsLoaded, commentsError, comments, id }
+  }) => {
+    if (commentsError) return <h2>{commentsError.message}</h2>;
+    if (commentsLoading) return <Loader />;
+    if (!commentsLoaded) return null;
+
+    if (comments.length === 0)
+      return (
+        <Fragment>
+          <p>Be the first to comment.</p>
+          <AddComment articleId={id} />
+        </Fragment>
+      );
+    return (
+      <Fragment>
+        <ul>
+          {comments.map(id => (
+            <Comment key={id} id={id} />
+          ))}
+        </ul>
+        <AddComment articleId={id} />
+      </Fragment>
+    );
+  };
 }
 
 Comment.propTypes = {
@@ -72,5 +72,7 @@ CommentList.defaultProps = {
 
 export default connect(
   null,
-  { loadArticleComments }
+  { loadArticleComments },
+  null,
+  { pure: false }
 )(toggleOpen(CommentList));

@@ -17,16 +17,20 @@ class ArticleList extends PureComponent {
 
     return (
       <ul>
-        {articles.map(article => (
-          <li key={article.id}>
-            <NavLink
-              to={`/articles/${article.id}`}
-              activeStyle={{ color: 'pink' }}
-            >
-              {article.title}
-            </NavLink>
-          </li>
-        ))}
+        {articles.map(article => {
+          // ISSUE: fix bug with empty link.. /articles/wrong
+          if (!article.id) return null;
+          return (
+            <li key={article.id}>
+              <NavLink
+                to={`/articles/${article.id}`}
+                activeStyle={{ color: 'pink' }}
+              >
+                {article.title}
+              </NavLink>
+            </li>
+          );
+        })}
       </ul>
     );
   }

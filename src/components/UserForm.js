@@ -1,29 +1,29 @@
 import React, { Component, Fragment } from 'react';
+import { UserContext } from './App';
 
 class UserForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { username: '' };
-    this.handleUserChange = this.handleUserChange.bind(this);
-
-  }
-
   render() {
     return (
       <Fragment>
-        <h1>Hello</h1>{' '}
-        <input
-          type="text"
-          value={this.state.username}
-          onChange={this.handleUserChange}
-        />
+        <UserContext.Consumer>
+          {context => (
+            <Fragment>
+              <h1>Hello</h1>
+              <input
+                type="text"
+                value={context.state.username}
+                onChange={e => context.handleUserChange(e.target.value)}
+              />
+            </Fragment>
+          )}
+        </UserContext.Consumer>
       </Fragment>
     );
   }
 
-  handleUserChange(event) {
-    this.setState({ username: event.target.value });
-  }
+  handleUserChange = e => {
+    this.props.onChange(e.target.value);
+  };
 }
 
 export default UserForm;
