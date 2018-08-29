@@ -10,61 +10,69 @@ import NotFound from './routes/NotFound';
 import { Route, Switch, NavLink } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
 import history from '../history';
+import translate from '../translate';
+
+import { LocalizationProvider } from './localizationContext';
 
 export const UserContext = React.createContext();
 
 class App extends React.Component {
-  state = { username: '' };
+  state = { username: '', lang: 'ru' };
 
   render() {
     return (
       <ConnectedRouter history={history}>
-        <UserContext.Provider
-          value={{
-            state: this.state,
-            handleUserChange: username => this.setState({ username })
-          }}
-        >
-          <Fragment>
-            <div>
-              <h2>Main menu</h2>
+        <LocalizationProvider translate={translate(this.state.lang)}>
+          <UserContext.Provider
+            value={{
+              state: this.state,
+              handleUserChange: username => this.setState({ username })
+            }}
+          >
+            <Fragment>
               <div>
-                <NavLink activeStyle={{ color: 'pink' }} to="/counter">
-                  Counter
-                </NavLink>
+                <button
+                  onClick={() =>
+                    this.setState({
+                      lang: this.state.lang === 'ru' ? 'eng' : 'ru'
+                    })
+                  }
+                >
+                  Change Language
+                </button>
+                <h2>Main menu</h2>
+                <div>
+                  <NavLink activeStyle={{ color: 'pink' }} to="/counter">
+                    Counter
+                  </NavLink>
+                </div>
+                <div>
+                  <NavLink activeStyle={{ color: 'pink' }} to="/filters">
+                    Filters
+                  </NavLink>
+                </div>
+                <div>
+                  <NavLink activeStyle={{ color: 'pink' }} to="/articles">
+                    ArticleList
+                  </NavLink>
+                </div>
+                <div>
+                  <NavLink activeStyle={{ color: 'pink' }} to="/comments">
+                    Comments
+                  </NavLink>
+                </div>
               </div>
-              <div>
-                <NavLink activeStyle={{ color: 'pink' }} to="/filters">
-                  Filters
-                </NavLink>
-              </div>
-              <div>
-                <NavLink activeStyle={{ color: 'pink' }} to="/articles">
-                  ArticleList
-                </NavLink>
-              </div>
-              <div>
-                <NavLink activeStyle={{ color: 'pink' }} to="/comments">
-                  Comments
-                </NavLink>
-              </div>
-            </div>
-            <UserForm
-            // value={this.state.username}
-            // onChange={this.handleUserChange}
-            />
-            <Switch>
-              <Route path="/counter" component={Counter} />
-              <Route path="/filters" component={Filters} />
-              {/* <ErrorBoundary> */}
-              <Route path="/articles" component={Articles} />
-              <Route path="/comments" component={Comments} />
-              {/* <Redirect from="/comments" to="/comments/1" /> */}
-              {/* </ErrorBoundary> */}
-              <Route path="*" component={NotFound} />
-            </Switch>
-          </Fragment>
-        </UserContext.Provider>
+              <UserForm />
+              <Switch>
+                <Route path="/counter" component={Counter} />
+                <Route path="/filters" component={Filters} />
+                <Route path="/articles" component={Articles} />
+                <Route path="/comments" component={Comments} />
+                <Route path="*" component={NotFound} />
+              </Switch>
+            </Fragment>
+          </UserContext.Provider>
+        </LocalizationProvider>
       </ConnectedRouter>
     );
   }

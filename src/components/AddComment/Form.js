@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import './style.css';
 import { FormErrors } from './FormErrors';
 import debounce from 'lodash/debounce';
+import { localizationConsumer } from '../localizationContext';
 
-export default class Form extends Component {
+class Form extends Component {
   validateFieldThrottle = debounce(this.validateField, 450);
   state = {
     user: '',
@@ -15,17 +16,18 @@ export default class Form extends Component {
   };
 
   render() {
+    const { translate } = this.props;
     const { user, message, formErrors, formValid } = this.state;
 
     return (
       <form className="commentForm" onSubmit={this.handleSubmit}>
         {/* <form className="commentForm" onSubmit={e => e.preventDefault()}> */}
-        <h2>Leave the comment</h2>
+        <h2>{translate.formTitle}</h2>
         <div className="form__panel">
           <FormErrors formErrors={formErrors} />
         </div>
         <div className="form-group">
-          <label htmlFor="user">Name:</label>
+          <label htmlFor="user">{translate.formName}:</label>
           <input
             onChange={this.handleUserInput}
             value={user}
@@ -35,7 +37,7 @@ export default class Form extends Component {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="message">Message:</label>
+          <label htmlFor="message">{translate.formMessage}:</label>
           <textarea
             onChange={this.handleUserInput}
             value={message}
@@ -47,7 +49,7 @@ export default class Form extends Component {
           type="submit"
           className={`form__submit${!formValid ? '-error' : ''}`}
           disabled={!formValid}
-          value="Send"
+          value={translate.formSubmit}
         />
       </form>
     );
@@ -104,3 +106,5 @@ export default class Form extends Component {
     });
   };
 }
+
+export default localizationConsumer(Form);

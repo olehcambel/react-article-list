@@ -50,30 +50,6 @@ export function loadArticle(id) {
     callAPI: `/api/article/${id}`,
     payload: { id }
   };
-  // return dispatch => {
-  //   dispatch({
-  //     type: types.ARTICLE_LOAD + types.START,
-  //     // callAPI: `/api/article/${id}`,
-  //     payload: { id }
-  //   });
-
-  //   setTimeout(() => {
-  //     axios(`/api/article/${id}`)
-  //       .then(response => {
-  //         dispatch( {
-  //           type: types.ARTICLE_LOAD + types.SUCCESS,
-  //           payload: { id, response: response.data }
-  //         });
-  //       })
-  //       .catch(error => {
-  //         dispatch(replace('/error'));
-  //         dispatch({
-  //           type: types.ARTICLE_LOAD + types.FAIL,
-  //           payload: { id, error }
-  //         });
-  //       });
-  //   }, 400);
-  // };
 }
 
 export function loadArticleComments(articleId) {
