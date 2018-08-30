@@ -20,7 +20,7 @@ class Articles extends React.Component {
   getArticle = ({ match }) => {
     const { id } = match.params;
 
-    return <Article id={id} isOpen key={id} />;
+    return <Article id={id} key={id} />;
   };
 
   getIndex = () => {

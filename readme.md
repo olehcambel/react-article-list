@@ -1,3 +1,3 @@
 # TODO:
 
-## code refactoring, especially in App
+## code refactoring

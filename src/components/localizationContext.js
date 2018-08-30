@@ -3,13 +3,10 @@ import React from 'react';
 const Context = React.createContext();
 
 export const LocalizationProvider = props => {
-  debugger;
   return (
     <Context.Provider
       value={{
-        // locale: props.locale,
         translate: props.translate
-        // currentLang: props.currentLang
       }}
     >
       {props.children}
@@ -22,14 +19,7 @@ export function localizationConsumer(Component) {
     return (
       <Context.Consumer>
         {context => {
-          debugger;
-          return (
-            <Component
-              {...props}
-              // locale={context.locale}
-              translate={context.translate}
-            />
-          );
+          return <Component {...props} translate={context.translate} />;
         }}
       </Context.Consumer>
     );

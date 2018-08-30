@@ -1,8 +1,7 @@
 import { createSelector } from 'reselect';
-import {mapToArr} from '../helpers'
+import { mapToArr } from '../helpers';
 
-
-const articlesGetter = state => state.articles.entities
+const articlesGetter = state => state.articles.entities;
 const filtersGetter = state => state.filters;
 
 const commentsGetter = state => state.comments.entities;
@@ -33,12 +32,13 @@ export const filtratedArticlesSelector = createSelector(
   }
 );
 
-export const commentSelectorRepo = () => createSelector(
-  commentsGetter,
-  idGetter,
-  (comments, id) => {
+export const commentSelectorRepo = () =>
+  createSelector(commentsGetter, idGetter, (comments, id) => {
     return comments.get(id);
     // return comments.find(comment => id === comment.id);
-  }
-);
+  });
 
+export const articleSelectorRepo = () =>
+  createSelector(articlesGetter, idGetter, (articles, id) => {
+    return articles.get(id);
+  });

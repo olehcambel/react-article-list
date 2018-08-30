@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Loader } from './Loader';
 import Comment from './Comment';
 import { commentLoadPerPage } from '../AC';
-import { NavLink } from 'react-router-dom';
+import LinkRoutes from './LinkRoutes';
 
 class CommentPagination extends Component {
   state = {};
@@ -48,11 +48,7 @@ class CommentPagination extends Component {
     const links = [];
     for (let i = 1; i <= Math.floor(total - 1) / limit + 1; i++) {
       links.push(
-        <li key={i}>
-          <NavLink to={`/comments/${i}`} activeStyle={{ color: 'lightblue' }}>
-            page {i}
-          </NavLink>
-        </li>
+        <LinkRoutes key={i} to={`/comments/${i}`} title={`page ${i}`} />
       );
     }
     return <ul>{links}</ul>;

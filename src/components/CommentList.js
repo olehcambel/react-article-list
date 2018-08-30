@@ -1,31 +1,45 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import toggleOpen from '../decorators/toggleOpen';
 import Comment from './Comment';
 import AddComment from './AddComment';
 import { connect } from 'react-redux';
 import { Loader } from './Loader';
 import { loadArticleComments } from '../AC';
 import ToggleButton from './ToggleButton';
+import { localizationConsumer } from './localizationContext';
 
 class CommentList extends Component {
+  state = { isOpen: false };
   render() {
-    const { isOpen, toggleOpen, article } = this.props;
+    const { article, translate } = this.props;
+    const { isOpen } = this.state;
     return (
       <Fragment>
-        <ToggleButton func={toggleOpen} isOpen={isOpen} label="comments" />
+        <ToggleButton
+          func={this.toggleOpen}
+          isOpen={isOpen}
+          label={translate.comments}
+        />
         {isOpen && this.getBody({ article })}
       </Fragment>
     );
   }
 
+  toggleOpen = () => {
+    this.setState({ isOpen: !this.state.isOpen });
+  };
+
   componentDidUpdate() {
     const {
-      isOpen,
       loadArticleComments,
       article: { commentsLoading, commentsLoaded, id, commentsError }
     } = this.props;
-    if (isOpen && !commentsLoading && !commentsLoaded && !commentsError > 0) {
+    if (
+      this.state.isOpen &&
+      !commentsLoading &&
+      !commentsLoaded &&
+      !commentsError > 0
+    ) {
       loadArticleComments(id);
     }
   }
@@ -40,7 +54,7 @@ class CommentList extends Component {
     if (comments.length === 0)
       return (
         <Fragment>
-          <p>Be the first to comment.</p>
+          <p>{this.props.translate.firstComment}</p>
           <AddComment articleId={id} />
         </Fragment>
       );
@@ -70,9 +84,11 @@ CommentList.defaultProps = {
   isOpen: false
 };
 
-export default connect(
-  null,
-  { loadArticleComments },
-  null,
-  { pure: false }
-)(toggleOpen(CommentList));
+export default localizationConsumer(
+  connect(
+    null,
+    { loadArticleComments },
+    null,
+    { pure: false }
+  )(CommentList)
+);

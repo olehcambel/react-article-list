@@ -2,22 +2,9 @@ import React, { Component } from 'react';
 
 export default OriginalComponent =>
   class ToggleOpenWrapper extends Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        isOpen: false
-      };
-
-      this.toggleOpen = this.toggleOpen.bind(this)
-    }
-
-    componentDidMount() {
-      // console.log('mounted')
-    }
-
-    componentDidUpdate() {
-      // console.log('updating')
-    }
+    state = {
+      isOpen: true
+    };
 
     render() {
       return (
@@ -29,7 +16,7 @@ export default OriginalComponent =>
       );
     }
 
-    toggleOpen() {
+    toggleOpen = () => {
       this.setState({ isOpen: !this.state.isOpen });
-    }
+    };
   };

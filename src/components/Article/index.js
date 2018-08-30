@@ -6,21 +6,32 @@ import { Loader } from '../Loader';
 import CommentList from '../CommentList';
 import { connect } from 'react-redux';
 import { removeArticle, loadArticle } from '../../AC';
+import { localizationConsumer } from '../localizationContext';
+import { articleSelectorRepo } from '../../selectors';
+
+import toggleOpen from '../../decorators/toggleOpen';
+import ToggleButton from '../ToggleButton';
 
 class Article extends Component {
   state = {};
   render() {
-    const { article, isOpen, toggleOpen } = this.props;
+    const { article, loading, isOpen, toggleOpen, translate } = this.props;
     if (!article) return null;
     if (article.error) {
       return <h2>{article.error.message}</h2>;
     }
-    if (isOpen && article.loading) return <Loader />;
+    if (isOpen && loading) return <Loader />;
     return (
       <Fragment>
         <h3> {article.title} </h3>
-        <button onClick={toggleOpen}>{isOpen ? 'close' : 'open'}</button>
-        <button onClick={this.handleRemove}> remove Article </button>
+        <ToggleButton
+          func={toggleOpen}
+          isOpen={isOpen}
+          label={translate.article}
+        />
+        <button onClick={this.handleRemove}>
+          {translate.remove} {translate.article}
+        </button>
         <ReactCSSTransitionGroup
           transitionName="Article"
           transitionEnterTimeout={550}
@@ -29,7 +40,16 @@ class Article extends Component {
           transitionAppearTimeout={500}
           component="div"
         >
-          {isOpen && !article.loading && this.getBody()}
+          {isOpen &&
+            !article.loading && (
+              <section>
+                {article.text}
+                <h3>
+                  {translate.date}: {new Date(article.date).toDateString()}
+                </h3>
+                <CommentList article={article} id={article.id} />
+              </section>
+            )}
         </ReactCSSTransitionGroup>
       </Fragment>
     );
@@ -38,17 +58,6 @@ class Article extends Component {
   componentDidMount() {
     const { article, id, loadArticle } = this.props;
     if (!article || (!article.text && !article.loading)) loadArticle(id);
-  }
-
-  getBody() {
-    const { article } = this.props;
-    return (
-      <section>
-        {article.text}
-        <h3>creation date: {new Date(article.date).toDateString()} </h3>
-        <CommentList article={article} id={article.id} />
-      </section>
-    );
   }
 
   handleRemove = () => {
@@ -82,15 +91,20 @@ Article.propTypes = {
 // };
 
 const mapStateToProps = (state, ownProps) => {
+  const articlesSelector = articleSelectorRepo();
   return {
     id: ownProps.id,
-    article: state.articles.entities.get(ownProps.id)
+    article: articlesSelector(state, ownProps),
+    loading: state.articles.entities.getIn([ownProps.id, 'loading'])
+    // error: state.articles.entities.getIn([ownProps.id, 'error']),
   };
 };
 
-export default connect(
-  mapStateToProps,
-  { removeArticle, loadArticle },
-  null,
-  { pure: false }
-)(Article);
+export default localizationConsumer(
+  connect(
+    mapStateToProps,
+    { removeArticle, loadArticle },
+    null,
+    { pure: false }
+  )(toggleOpen(Article))
+);

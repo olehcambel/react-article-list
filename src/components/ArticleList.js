@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import { filtratedArticlesSelector } from '../selectors';
 import { loadAllArticles } from '../AC';
 import { Loader } from './Loader';
-import { NavLink } from 'react-router-dom';
+
+import LinkRoutes from './LinkRoutes';
 
 class ArticleList extends PureComponent {
   state = {};
@@ -21,14 +22,11 @@ class ArticleList extends PureComponent {
           // ISSUE: fix bug with empty link.. /articles/wrong
           if (!article.id) return null;
           return (
-            <li key={article.id}>
-              <NavLink
-                to={`/articles/${article.id}`}
-                activeStyle={{ color: 'pink' }}
-              >
-                {article.title}
-              </NavLink>
-            </li>
+            <LinkRoutes
+              key={article.id}
+              to={`/articles/${article.id}`}
+              title={article.title}
+            />
           );
         })}
       </ul>

@@ -7,13 +7,13 @@ import Articles from './routes/Articles';
 import Comments from './routes/Comments';
 import NotFound from './routes/NotFound';
 // import ErrorBoundary from './ErrorBoundary';
-import { Route, Switch, NavLink } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
 import history from '../history';
 import translate from '../translate';
+import LinkRoutes from './LinkRoutes';
 
 import { LocalizationProvider } from './localizationContext';
-
 export const UserContext = React.createContext();
 
 class App extends React.Component {
@@ -31,36 +31,17 @@ class App extends React.Component {
           >
             <Fragment>
               <div>
-                <button
-                  onClick={() =>
-                    this.setState({
-                      lang: this.state.lang === 'ru' ? 'eng' : 'ru'
-                    })
-                  }
-                >
-                  Change Language
+                <button onClick={this.handleLangChange} name="ru">
+                  Russian
+                </button>
+                <button onClick={this.handleLangChange} name="eng">
+                  English
                 </button>
                 <h2>Main menu</h2>
-                <div>
-                  <NavLink activeStyle={{ color: 'pink' }} to="/counter">
-                    Counter
-                  </NavLink>
-                </div>
-                <div>
-                  <NavLink activeStyle={{ color: 'pink' }} to="/filters">
-                    Filters
-                  </NavLink>
-                </div>
-                <div>
-                  <NavLink activeStyle={{ color: 'pink' }} to="/articles">
-                    ArticleList
-                  </NavLink>
-                </div>
-                <div>
-                  <NavLink activeStyle={{ color: 'pink' }} to="/comments">
-                    Comments
-                  </NavLink>
-                </div>
+                <LinkRoutes to="/counter" title="Counter" />
+                <LinkRoutes to="/filters" title="Filters" />
+                <LinkRoutes to="/articles" title="ArticleList" />
+                <LinkRoutes to="/comments" title="Comments" />
               </div>
               <UserForm />
               <Switch>
@@ -76,6 +57,12 @@ class App extends React.Component {
       </ConnectedRouter>
     );
   }
+
+  handleLangChange = ({ target }) => {
+    this.setState({
+      lang: target.name
+    });
+  };
 
   handleUserChange = username => this.setState({ username });
 }
