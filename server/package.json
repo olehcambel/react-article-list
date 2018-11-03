@@ -10,6 +10,10 @@
     "express": "^4.16.3"
   },
   "scripts": {
-    "start": "supervisor server.js --open"
+    "start": "node server.js",
+    "dev": "nodemon --inspect server.js"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.4"
   }
 }

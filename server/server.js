@@ -1,19 +1,16 @@
-var path = require('path');
-var express = require('express');
-var api = require('./api');
-var bodyParser = require('body-parser');
-var port = 3001;
-
-var app = express();
+const app = require('express')();
+const api = require('./api');
+const bodyParser = require('body-parser');
+const port = 3001;
 
 app.use(bodyParser.json());
-app.use('/api', api)
+app.use('/api', api);
 
-app.listen(port, 'localhost', function (err) {
-    if (err) {
-        console.log(err);
-        return;
-    }
+app.listen(port, 'localhost', err => {
+  if (err) {
+    console.log(err);
+    return;
+  }
 
-    console.log('Listening at http://localhost:' + port);
+  console.log('Listening at http://localhost:' + port);
 });
