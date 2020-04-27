@@ -43,7 +43,6 @@ export default (articleState = defaultState, action) => {
       return articleState.set('loading', true).set('error', '');
 
     case types.ARTICLE_LOAD_ALL + types.SUCCESS:
-    debugger
       return articleState
         .update('entities', entities =>
           arrToMap(response, ArticleRecord).merge(entities)

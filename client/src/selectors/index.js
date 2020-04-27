@@ -15,7 +15,6 @@ export const filtratedArticlesSelector = createSelector(
       selection,
       period: { from, to }
     } = filters;
-debugger
     const fromParse = Date.parse(String(from));
     const toParse = Date.parse(String(to));
 
